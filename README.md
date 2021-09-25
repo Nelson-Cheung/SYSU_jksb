@@ -113,7 +113,7 @@ export PATH=.:$PATH
 Message: 'geckodriver' executable needs to be in PATH. 
 ```
 
-启动，在命令行参数下加入`netid`，`passwd`，`hour`，`minute`。
+启动，在命令行参数下加入`netid`，`passwd`，`hour`，`minute`，示例如下。
 
 ```shell
 python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00
@@ -122,6 +122,8 @@ python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00
 + `--netid`表示netid。
 + `--passwd`表示密码。
 + `--hour`和`--minute`表示每天提交申报的时间，上面的例子是`07:00`提交申报。
+
+将`NelsonCheung`和`ilovesysu`换成你的账号密码即可。
 
 注意，密码中若含有特殊字符需要加上`\`。例如，
 
@@ -139,7 +141,7 @@ python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00
 
 <img src="gallery/1.PNG" alt="1" style="zoom:50%;" />
 
-为了实现定时申报，需要将该工具放到一台不会关机的电脑上，例如云服务器。然后在后台启动并持续运行，启动命令如下。
+为了实现定时申报，需要将该工具放到一台不会关机的电脑上，例如云服务器。然后在后台启动并持续运行，启动命令示例如下。
 
 ```shell
 nohup python3 -u sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00 > log.out &
