@@ -1,4 +1,4 @@
-# SYSU自动健康申报
+# SYSU自动健康申报-使用教程
 
 > + 测试环境：Ubuntu 18.04
 > + python版本：python 3.6.9
@@ -145,7 +145,7 @@ nohup python3 -u sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --min
 tail -f log.out
 ```
 
-可以多启动工具，每个工具设置不同的时间。
+可以启动多个工具，每个工具设置不同的时间。
 
 在[reference_guide.md](reference_guide.md)中可以找到工具的实现方法。
 
