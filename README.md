@@ -1,7 +1,7 @@
 # SYSU自动健康申报
 
 > + 测试环境：Ubuntu 18.04
-> + python版本：python 3.6
+> + python版本：python 3.6.9
 > + 特别提醒：由于涉及到netid等敏感信息，工具只能在自己的环境中使用，切勿假手于人。
 > + 免责声明：本工具仅供学习和交流，禁止用于任何商业用途和任何诸如ddos攻击等违法行为。本工具今后造成的纠纷和一切后果，均由工具使用者承担，与本作者无关。
 
@@ -110,7 +110,7 @@ export PATH=.:$PATH
 启动，在命令行参数下加入`netid`，`passwd`，`hour`，`minute`。
 
 ```shell
-python3 sysu.py --netid=zhangjy297 --passwd=ilovesysu --hour=07 --minute=00
+python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00
 ```
 
 + `--netid`表示netid。
@@ -120,18 +120,32 @@ python3 sysu.py --netid=zhangjy297 --passwd=ilovesysu --hour=07 --minute=00
 注意，密码中若含有特殊字符需要加上`\`。例如，
 
 ```
--passwd=ilovesysu!!!
+--passwd=ilovesysu!!!
 ```
 
 应该输入
 
 ```
--passwd=ilovesysu\!\!\!
+--passwd=ilovesysu\!\!\!
 ```
 
 后面就可以看到如下信息。
 
 <img src="gallery/1.PNG" alt="1" style="zoom:50%;" />
 
-对工具实现感兴趣的可以在[reference_guide.md](reference_guide.md)中找到实现方法。
+为了实现定时申报，需要将该工具放到一台不会关机的电脑上，例如云服务器。然后在后台启动并持续运行，启动命令如下。
+
+```shell
+nohup python3 -u sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00 > log.out &
+```
+
+每次只需查看`log.out`即可看到程序输出。
+
+```shell
+tail -f log.out
+```
+
+可以多启动工具，每个工具设置不同的时间。
+
+在[reference_guide.md](reference_guide.md)中可以找到工具的实现方法。
 

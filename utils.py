@@ -1,21 +1,11 @@
 import datetime
 import muggle_ocr
-
-sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
-
-
-def get_code_text(img_path, bytes):
-    with open(img_path, "rb") as f:
-        captcha_bytes = f.read()
-    text = sdk.predict(image_bytes=captcha_bytes)
-    return text
-
-
 import time
 import selenium.common.exceptions
 from selenium import webdriver
 import requests
 
+sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
 
 def do_jksb(netid, passwd):
     print("*"*30)
