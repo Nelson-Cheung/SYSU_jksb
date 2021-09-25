@@ -15,8 +15,8 @@ except getopt.GetoptError:
     print_help_msg()
     sys.exit(-1)
 
-hour = 6
-minute = 30
+hour = 10
+minute = 00
 netid = None
 passwd = None
 
