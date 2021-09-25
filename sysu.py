@@ -4,12 +4,10 @@ import sys
 import time
 from utils import *
 
-
 def print_help_msg():
     print("python3 sysu.py --netid=your_netid --passwd=your_password [--hour=your_hour] [--minute=your_minute]\n" \
           "e.g. python3 sysu.py --netid=zhangjy297 --passwd=ilovesysu --hour=6 --minute=30" \
           )
-
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], shortopts="", longopts=["help", "netid=", "passwd=", "hour=", "minute="])
@@ -25,6 +23,7 @@ passwd = None
 for opt, arg in opts:
     if opt == "--help":
         print_help_msg()
+        sys.exit(0)
     elif opt == "--netid":
         netid = arg
     elif opt == "--passwd":
