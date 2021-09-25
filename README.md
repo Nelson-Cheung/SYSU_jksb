@@ -107,6 +107,12 @@ tar -xvf geckodriver-v0.30.0-linux64.tar.gz
 export PATH=.:$PATH
 ```
 
+这一步是必须的，否则会报如下错误。
+
+```
+Message: 'geckodriver' executable needs to be in PATH. 
+```
+
 启动，在命令行参数下加入`netid`，`passwd`，`hour`，`minute`。
 
 ```shell
@@ -145,7 +151,15 @@ nohup python3 -u sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --min
 tail -f log.out
 ```
 
+可以退出后重新登录，通过如下命令检查工具是否存在。
+
+```shell
+ps aux | grep sysu.py
+```
+
 可以启动多个工具，每个工具设置不同的时间。
+
+如果不加时间，工具的默认时间是`06:30`。
 
 在[reference_guide.md](reference_guide.md)中可以找到工具的实现方法。
 
