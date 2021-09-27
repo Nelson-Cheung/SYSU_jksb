@@ -88,14 +88,27 @@ def do_jksb(netid, passwd):
         except selenium.common.exceptions.NoSuchElementException:
             pass
         else:
-            print("submit succeed")
+            print("jump succeed")
             break
 
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
     time.sleep(1)
     name.click()
 
-    time.sleep(2)
+    while True:
+        time.sleep(1)
+        driver.switch_to.window(driver.window_handles[0])
+
+        try:
+            driver.find_element_by_id("title_description")
+        except selenium.common.exceptions.NoSuchElementException:
+            pass
+        else:
+            break
+
+    number = driver.find_element_by_id("title_description").get_attribute('textContent')
+    print("submit succeed, {}".format(number))
+
     driver.quit()
 
     print("{}: done...".format(datetime.datetime.now()))
