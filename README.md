@@ -141,6 +141,8 @@ python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=07 --minute=00
 
 <img src="gallery/1.PNG" alt="1" style="zoom:50%;" />
 
+其中，`SN`是申报成功的流水号。
+
 为了实现定时申报，需要将该工具放到一台不会关机的电脑上，例如云服务器。然后在后台启动并持续运行，启动命令示例如下。
 
 ```shell
