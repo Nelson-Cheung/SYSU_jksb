@@ -71,4 +71,5 @@ while True:
 
     if flag and (now.hour > hour or (now.hour == hour and now.minute >= minute)):
         flag = False
-        do_jksb(netid, passwd)
+        while do_jksb(netid, passwd) is False:
+            pass

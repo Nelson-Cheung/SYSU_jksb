@@ -77,7 +77,12 @@ def do_jksb(netid, passwd):
 
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
     time.sleep(1)
-    name.click()
+
+    try:
+        name.click()
+    except selenium.common.exceptions.ElementClickInterceptedException:
+        print("do jksb failed, return")
+        return False
 
     while True:
         time.sleep(1)
@@ -93,7 +98,12 @@ def do_jksb(netid, passwd):
 
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
     time.sleep(1)
-    name.click()
+
+    try:
+        name.click()
+    except selenium.common.exceptions.ElementClickInterceptedException:
+        print("do jksb failed, return")
+        return False
 
     while True:
         time.sleep(1)
@@ -112,3 +122,4 @@ def do_jksb(netid, passwd):
     driver.quit()
 
     print("{}: done...".format(datetime.datetime.now()))
+    return True
