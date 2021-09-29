@@ -82,6 +82,7 @@ def do_jksb(netid, passwd):
         name.click()
     except selenium.common.exceptions.ElementClickInterceptedException:
         print("do jksb failed, return")
+        driver.quit()
         return False
 
     while True:
@@ -103,6 +104,7 @@ def do_jksb(netid, passwd):
         name.click()
     except selenium.common.exceptions.ElementClickInterceptedException:
         print("do jksb failed, return")
+        driver.quit()
         return False
 
     while True:

@@ -167,3 +167,5 @@ ps aux | grep sysu.py
 
 在[reference_guide.md](reference_guide.md)中可以找到工具的实现方法。
 
+## 一些问题
+使用`kill`命令kill掉进程后会导致后台的`firefox`进程无法退出，从而导致资源泄露。此时需要手动`kill`掉未正常退出的`firefox`进程。
