@@ -21,7 +21,6 @@ def wait_by(type, driver, item):
             elif type == "id":
                 driver.find_element_by_id(item)
             elif type == "class name":
-                print("YES")
                 driver.find_element_by_class_name(item)
 
         except selenium.common.exceptions.NoSuchElementException:
