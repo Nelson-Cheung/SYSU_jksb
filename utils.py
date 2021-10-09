@@ -7,6 +7,25 @@ import requests
 
 sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
 
+def wait_by(type, driver, item):
+    while True:
+        time.sleep(1)
+        driver.switch_to.window(driver.window_handles[0])
+
+        try:
+
+            if type == "xpath":
+                driver.find_element_by_xpath(item)
+            elif type == "name":
+                driver.find_element_by_name(item)
+            elif type == "id":
+                driver.find_element_by_id(item)
+
+        except selenium.common.exceptions.NoSuchElementException:
+            pass
+        else:
+            break    
+
 def do_jksb(netid, passwd):
     print("*"*30)
     print("{}: start...".format(datetime.datetime.now()))
@@ -18,17 +37,8 @@ def do_jksb(netid, passwd):
     while True:
         driver.get("http://jksb.sysu.edu.cn/infoplus/")
 
-        while True:
-            time.sleep(1)
-            driver.switch_to.window(driver.window_handles[0])
-
-            try:
-                driver.find_element_by_name("submit")
-            except selenium.common.exceptions.NoSuchElementException:
-                pass
-            else:
-                print("jump succeed")
-                break
+        wait_by("name", driver, "submit")
+        print("jump to login page succeed")
 
         cookies = driver.get_cookies()[0]
         res = requests.get("https://cas.sysu.edu.cn/cas/captcha.jsp",
@@ -63,20 +73,11 @@ def do_jksb(netid, passwd):
             print("login failed, try again...")
 
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start?membership=Wechat_Enterprise")
-    while True:
-        time.sleep(1)
-        driver.switch_to.window(driver.window_handles[0])
-
-        try:
-            driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
-        except selenium.common.exceptions.NoSuchElementException:
-            pass
-        else:
-            print("jump succeed")
-            break
+    wait_by("xpath", driver, "//a[contains(@id, 'infoplus_action')]")
+    print("jump to confirm page succeed")
 
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
-    time.sleep(1)
+    # time.sleep(1)
 
     try:
         name.click()
@@ -85,20 +86,9 @@ def do_jksb(netid, passwd):
         driver.quit()
         return False
 
-    while True:
-        time.sleep(1)
-        driver.switch_to.window(driver.window_handles[0])
-
-        try:
-            driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
-        except selenium.common.exceptions.NoSuchElementException:
-            pass
-        else:
-            print("jump succeed")
-            break
-
+    wait_by("xpath", driver, "//a[contains(@id, 'infoplus_action')]")
+    print("jump to submit page succeed")
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
-    time.sleep(1)
 
     try:
         name.click()
@@ -107,16 +97,8 @@ def do_jksb(netid, passwd):
         driver.quit()
         return False
 
-    while True:
-        time.sleep(1)
-        driver.switch_to.window(driver.window_handles[0])
-
-        try:
-            driver.find_element_by_id("title_description")
-        except selenium.common.exceptions.NoSuchElementException:
-            pass
-        else:
-            break
+    wait_by("id", driver, "title_description")
+    print("jump to finish page succeed")
 
     number = driver.find_element_by_id("title_description").get_attribute('textContent')
     print("submit succeed, {}".format(number))

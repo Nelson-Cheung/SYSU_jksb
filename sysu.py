@@ -2,11 +2,10 @@ import datetime
 import getopt
 import sys
 import time
-from utils import *
 
 def print_help_msg():
     print("python3 sysu.py --netid=your_netid --passwd=your_password [--hour=your_hour] [--minute=your_minute]\n" \
-          "e.g. python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=6 --minute=30" \
+          "e.g. python3 sysu.py --netid=NelsonCheung --passwd=ilovesysu --hour=08 --minute=00" \
           )
 
 try:
@@ -57,6 +56,8 @@ if netid is None or passwd is None:
     print("netid and passwd must be provided")
     print_help_msg()
     sys.exit(-1)
+
+from utils import *
 
 flag = True
 day = -1
