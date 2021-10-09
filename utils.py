@@ -21,8 +21,9 @@ def wait_by(type, driver, item):
             elif type == "id":
                 driver.find_element_by_id(item)
             elif type == "class name":
+                print("YES")
                 driver.find_element_by_class_name(item)
-                
+
         except selenium.common.exceptions.NoSuchElementException:
             pass
         else:
@@ -79,7 +80,7 @@ def do_jksb(netid, passwd):
     print("jump to confirm page succeed")
 
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
-    # time.sleep(1)
+    time.sleep(1)
 
     try:
         name.click()
@@ -90,7 +91,9 @@ def do_jksb(netid, passwd):
 
     wait_by("class name", driver, "command_button_content")
     print("jump to submit page succeed")
+
     name = driver.find_element_by_class_name("command_button_content")
+    time.sleep(1)
 
     try:
         name.click()
