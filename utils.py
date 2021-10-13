@@ -3,9 +3,12 @@ import muggle_ocr
 import time
 import selenium.common.exceptions
 from selenium import webdriver
+from selenium.common.exceptions import *
+
 import requests
 
 sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
+annoying_exceptions = (ElementClickInterceptedException, StaleElementReferenceException)
 
 def wait_by(type, driver, item):
     while True:
@@ -83,7 +86,7 @@ def do_jksb(netid, passwd):
 
     try:
         name.click()
-    except selenium.common.exceptions.ElementClickInterceptedException:
+    except annoying_exceptions:
         print("do jksb failed, return")
         driver.quit()
         return False
@@ -96,7 +99,7 @@ def do_jksb(netid, passwd):
 
     try:
         name.click()
-    except selenium.common.exceptions.ElementClickInterceptedException:
+    except annoying_exceptions:
         print("do jksb failed, return")
         driver.quit()
         return False
