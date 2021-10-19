@@ -1,4 +1,6 @@
 import datetime
+import multiprocessing
+import threading
 import muggle_ocr
 import time
 import selenium.common.exceptions
@@ -28,13 +30,9 @@ def wait_by(type, driver, item):
         else:
             break    
 
-def do_jksb(netid, passwd):
+def jksb_thread(driver, netid, passwd, success_flag):
     print("*"*30)
     print("{}: start...".format(datetime.datetime.now()))
-
-    options = webdriver.FirefoxOptions()
-    options.add_argument('--headless')
-    driver = webdriver.Firefox(options=options)
 
     while True:
         driver.get("http://jksb.sysu.edu.cn/infoplus/")
@@ -80,26 +78,14 @@ def do_jksb(netid, passwd):
 
     name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
     time.sleep(1)
-
-    try:
-        name.click()
-    except selenium.common.exceptions.ElementClickInterceptedException:
-        print("do jksb failed, return")
-        driver.quit()
-        return False
+    name.click()
 
     wait_by("class name", driver, "command_button_content")
     print("jump to submit page succeed")
 
     name = driver.find_element_by_class_name("command_button_content")
     time.sleep(1)
-
-    try:
-        name.click()
-    except selenium.common.exceptions.ElementClickInterceptedException:
-        print("do jksb failed, return")
-        driver.quit()
-        return False
+    name.click()
 
     wait_by("id", driver, "title_description")
     print("jump to finish page succeed")
@@ -107,7 +93,29 @@ def do_jksb(netid, passwd):
     number = driver.find_element_by_id("title_description").get_attribute('textContent')
     print("submit succeed, {}".format(number))
 
-    driver.quit()
-
     print("{}: done...".format(datetime.datetime.now()))
-    return True
+
+    success_flag.value = True
+
+def jksb_process(netid, passwd, success_flag):
+    options = webdriver.FirefoxOptions()
+    options.add_argument('--headless')
+    driver = webdriver.Firefox(options=options)
+
+    t = threading.Thread(target=jksb_thread, args=(driver, netid, passwd, success_flag))
+    t.setDaemon(True)
+    t.start()
+    t.join(60)
+
+    driver.quit()
+    
+    return
+
+def do_jksb(netid, passwd):
+    flag = multiprocessing.Value("b", False)
+
+    p = multiprocessing.Process(target=jksb_process, args=(netid, passwd, flag))
+    p.start()
+    p.join()
+
+    return flag.value
