@@ -7,8 +7,6 @@ import selenium.common.exceptions
 from selenium import webdriver
 import requests
 
-sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
-
 def wait_by(type, driver, item):
     while True:
         time.sleep(1)
@@ -31,6 +29,8 @@ def wait_by(type, driver, item):
             break    
 
 def jksb_thread(driver, netid, passwd, success_flag):
+    sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
+    
     print("*"*30)
     print("{}: start...".format(datetime.datetime.now()))
 
@@ -47,6 +47,7 @@ def jksb_thread(driver, netid, passwd, success_flag):
         code_path = "sysu_login_code.png"
         with open(code_path, "wb") as f:
             f.write(res.content)
+
         code_text = sdk.predict(image_bytes=res.content)
         print("code: %s, path: %s" % (code_text, code_path))
 
@@ -108,7 +109,7 @@ def jksb_process(netid, passwd, success_flag):
     t.join(60)
 
     driver.quit()
-    
+
     return
 
 def do_jksb(netid, passwd):
