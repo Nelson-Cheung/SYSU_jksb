@@ -30,7 +30,7 @@ def wait_by(type, driver, item):
 
 def jksb_thread(driver, netid, passwd, success_flag):
     sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
-    
+
     print("*"*30)
     print("{}: start...".format(datetime.datetime.now()))
 
@@ -113,6 +113,7 @@ def jksb_process(netid, passwd, success_flag):
     return
 
 def do_jksb(netid, passwd):
+    
     flag = multiprocessing.Value("b", False)
 
     p = multiprocessing.Process(target=jksb_process, args=(netid, passwd, flag))

@@ -2,6 +2,7 @@ import datetime
 import getopt
 import sys
 import time
+import os
 
 def print_help_msg():
     print("python3 sysu.py --netid=your_netid --passwd=your_password [--hour=your_hour] [--minute=your_minute]\n" \
@@ -9,6 +10,8 @@ def print_help_msg():
           )
 
 if __name__ == '__main__':
+    os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
     try:
         opts, args = getopt.getopt(sys.argv[1:], shortopts="", longopts=["help", "netid=", "passwd=", "hour=", "minute="])
     except getopt.GetoptError:
