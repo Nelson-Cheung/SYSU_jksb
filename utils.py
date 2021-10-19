@@ -5,6 +5,7 @@ import muggle_ocr
 import time
 import selenium.common.exceptions
 from selenium import webdriver
+from selenium.common.exceptions import *
 import requests
 
 def wait_by(type, driver, item):
@@ -87,6 +88,7 @@ def jksb_thread(driver, netid, passwd, success_flag):
     name = driver.find_element_by_class_name("command_button_content")
     time.sleep(1)
     name.click()
+
 
     wait_by("id", driver, "title_description")
     print("jump to finish page succeed")
