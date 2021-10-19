@@ -76,7 +76,8 @@ if __name__ == '__main__':
 
         if flag and (now.hour > hour or (now.hour == hour and now.minute >= minute)):
             flag = False
-            # while do_jksb(netid, passwd) is False:
-            #     pass
-            while True:
-                do_jksb(netid, passwd)
+            while do_jksb(netid, passwd) is False:
+                print("failed, do again...")
+                pass
+            # while True:
+            #     do_jksb(netid, passwd)
