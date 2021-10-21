@@ -7,7 +7,7 @@ import selenium.common.exceptions
 from selenium import webdriver
 from selenium.common.exceptions import *
 import requests
-
+import os
 
 def wait_by(type, driver, item):
     while True:
@@ -37,6 +37,8 @@ def jksb_thread(driver, netid, passwd, success_flag):
     print("*"*30)
     print("{}: start...".format(datetime.datetime.now()))
 
+    # code_path = "sysu_login_code"+str(int(time.time() * 100000))+".png"
+
     while True:
         driver.get("http://jksb.sysu.edu.cn/infoplus/")
 
@@ -47,12 +49,12 @@ def jksb_thread(driver, netid, passwd, success_flag):
         res = requests.get("https://cas.sysu.edu.cn/cas/captcha.jsp",
                            cookies={cookies['name']: cookies['value']})
 
-        code_path = "sysu_login_code"+str(int(time.time() * 100000))+".png"
-        with open(code_path, "wb") as f:
-            f.write(res.content)
+        # with open(code_path, "wb") as f:
+        #     f.write(res.content)
 
         code_text = sdk.predict(image_bytes=res.content)
-        print("code: %s, path: %s" % (code_text, code_path))
+        # print("code: %s, path: %s" % (code_text, code_path))
+        print("code recognization: %s" %(code_text))
 
         name = driver.find_element_by_id("username")
         name.send_keys(netid)
@@ -75,6 +77,8 @@ def jksb_thread(driver, netid, passwd, success_flag):
             break
         else:
             print("login failed, try again...")
+
+    # os.remove(code_path)
 
     driver.get(
         "http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start?membership=Wechat_Enterprise")
