@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.common.exceptions import *
 import requests
 
+
 def wait_by(type, driver, item):
     while True:
         time.sleep(1)
@@ -27,7 +28,8 @@ def wait_by(type, driver, item):
         except selenium.common.exceptions.NoSuchElementException:
             pass
         else:
-            break    
+            break
+
 
 def jksb_thread(driver, netid, passwd, success_flag):
     sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
@@ -45,7 +47,7 @@ def jksb_thread(driver, netid, passwd, success_flag):
         res = requests.get("https://cas.sysu.edu.cn/cas/captcha.jsp",
                            cookies={cookies['name']: cookies['value']})
 
-        code_path = "sysu_login_code.png"
+        code_path = "sysu_login_code"+str(int(time.time() * 100000))+".png"
         with open(code_path, "wb") as f:
             f.write(res.content)
 
@@ -74,11 +76,13 @@ def jksb_thread(driver, netid, passwd, success_flag):
         else:
             print("login failed, try again...")
 
-    driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start?membership=Wechat_Enterprise")
+    driver.get(
+        "http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start?membership=Wechat_Enterprise")
     wait_by("xpath", driver, "//a[contains(@id, 'infoplus_action')]")
     print("jump to confirm page succeed")
 
-    name = driver.find_element_by_xpath("//a[contains(@id, 'infoplus_action')]")
+    name = driver.find_element_by_xpath(
+        "//a[contains(@id, 'infoplus_action')]")
     time.sleep(1)
     name.click()
 
@@ -89,23 +93,25 @@ def jksb_thread(driver, netid, passwd, success_flag):
     time.sleep(1)
     name.click()
 
-
     wait_by("id", driver, "title_description")
     print("jump to finish page succeed")
 
-    number = driver.find_element_by_id("title_description").get_attribute('textContent')
+    number = driver.find_element_by_id(
+        "title_description").get_attribute('textContent')
     print("submit succeed, {}".format(number))
 
     print("{}: done...".format(datetime.datetime.now()))
 
     success_flag.value = True
 
+
 def jksb_process(netid, passwd, success_flag):
     options = webdriver.FirefoxOptions()
     options.add_argument('--headless')
     driver = webdriver.Firefox(options=options)
 
-    t = threading.Thread(target=jksb_thread, args=(driver, netid, passwd, success_flag))
+    t = threading.Thread(target=jksb_thread, args=(
+        driver, netid, passwd, success_flag))
     t.setDaemon(True)
     t.start()
     t.join(60)
@@ -114,11 +120,13 @@ def jksb_process(netid, passwd, success_flag):
 
     return
 
+
 def do_jksb(netid, passwd):
-    
+
     flag = multiprocessing.Value("b", False)
 
-    p = multiprocessing.Process(target=jksb_process, args=(netid, passwd, flag))
+    p = multiprocessing.Process(
+        target=jksb_process, args=(netid, passwd, flag))
     p.start()
     p.join()
 
