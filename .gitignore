@@ -2,3 +2,5 @@ __pycache__
 *.log
 sysu_login_code.png
 tmp*
+geckodriver*
+log*

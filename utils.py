@@ -6,6 +6,8 @@ import time
 import selenium.common.exceptions
 from selenium import webdriver
 from selenium.common.exceptions import *
+from selenium.webdriver.common.by import By
+
 import requests
 import os
 
@@ -17,13 +19,13 @@ def wait_by(type, driver, item):
         try:
 
             if type == "xpath":
-                driver.find_element_by_xpath(item)
+                driver.find_element(By.XPATH, item)
             elif type == "name":
-                driver.find_element_by_name(item)
+                driver.find_element(By.NAME, item)
             elif type == "id":
-                driver.find_element_by_id(item)
+                driver.find_element(By.ID, item)
             elif type == "class name":
-                driver.find_element_by_class_name(item)
+                driver.find_element(By.CLASS_NAME, item)
 
         except selenium.common.exceptions.NoSuchElementException:
             pass
@@ -56,13 +58,13 @@ def jksb_thread(driver, netid, passwd, success_flag):
         # print("code: %s, path: %s" % (code_text, code_path))
         print("code recognization: %s" %(code_text))
 
-        name = driver.find_element_by_id("username")
+        name = driver.find_element(By.ID, "username")
         name.send_keys(netid)
-        name = driver.find_element_by_id("password")
+        name = driver.find_element(By.ID, "password")
         name.send_keys(passwd)
-        name = driver.find_element_by_id("captcha")
+        name = driver.find_element(By.ID, "captcha")
         name.send_keys(code_text)
-        name = driver.find_element_by_name("submit")
+        name = driver.find_element(By.NAME, "submit")
 
         try:
             name.click()
@@ -71,7 +73,7 @@ def jksb_thread(driver, netid, passwd, success_flag):
             break
 
         try:
-            driver.find_element_by_name("submit")
+            driver.find_element(By.NAME, "submit")
         except selenium.common.exceptions.NoSuchElementException:
             print("login succeed")
             break
@@ -85,7 +87,7 @@ def jksb_thread(driver, netid, passwd, success_flag):
     wait_by("xpath", driver, "//a[contains(@id, 'infoplus_action')]")
     print("jump to confirm page succeed")
 
-    name = driver.find_element_by_xpath(
+    name = driver.find_element(By.XPATH, 
         "//a[contains(@id, 'infoplus_action')]")
     time.sleep(1)
     name.click()
@@ -93,14 +95,14 @@ def jksb_thread(driver, netid, passwd, success_flag):
     wait_by("class name", driver, "command_button_content")
     print("jump to submit page succeed")
 
-    name = driver.find_element_by_class_name("command_button_content")
+    name = driver.find_element(By.CLASS_NAME, "command_button_content")
     time.sleep(1)
     name.click()
 
     wait_by("id", driver, "title_description")
     print("jump to finish page succeed")
 
-    number = driver.find_element_by_id(
+    number = driver.find_element(By.ID, 
         "title_description").get_attribute('textContent')
     print("submit succeed, {}".format(number))
 
