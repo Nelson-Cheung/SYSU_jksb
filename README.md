@@ -26,6 +26,12 @@ sudo apt install git -y
 git clone https://github.com/NelsonCheung688585/SYSU_jksb.git jksb
 ```
 
+进入`jksb`文件夹。
+
+```shell
+cd jksb
+```
+
 下载`pip3`。
 
 ```shell
@@ -64,12 +70,6 @@ pip3 install selenium
 
 ```shell
 sudo apt install firefox
-```
-
-进入`jksb`文件夹。
-
-```shell
-cd jksb
 ```
 
 下载`firefox`驱动，`selenium`将使用其来访问网站。
