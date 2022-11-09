@@ -14,31 +14,6 @@
 
 ## 换源
 
-首先将下载源更换成[阿里源](https://developer.aliyun.com/mirror/ubuntu)。
-
-```shell
-sudo gedit /etc/apt/sources.list
-```
-
-将里面的内容替换成Ubuntu 18.04的阿里镜像源。
-
-```
-deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-
-deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-
-deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-
-deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-
-deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-```
-
 更新下载源。
 
 ```shell
@@ -56,28 +31,29 @@ sudo apt install python3-pip -y
 更新`pip3`，否则后面安装`opencv`时会卡住。
 
 ```shell
-pip3 install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 安装`opencv`。
 
 ```shell
-sudo apt install cmake -y
-sudo apt install libopencv-dev -y
-pip3 install scikit-build -i https://mirrors.aliyun.com/pypi/simple/
-pip3 install opencv-python -i https://mirrors.aliyun.com/pypi/simple/
+sudo apt install cmake libopencv-dev -y
+pip3 install scikit-build opencv-python
 ```
 
 安装`muggle_ocr`，`muggle_ocr`用作验证码识别。
 
 ```shell
-pip3 install muggle_ocr -i https://mirrors.aliyun.com/pypi/simple/
+tar -xvf muggle-ocr-1.0.3.tar.gz
+cd muggle-ocr-1.0.3
+python3 setup.py install
 ```
 
 安装`selenium`，`selenium`用来访问健康申报的网站。
 
 ```shell
-pip3 install selenium -i https://mirrors.aliyun.com/pypi/simple/
+pip3 install selenium
 ```
 
 安装`firefox`。
