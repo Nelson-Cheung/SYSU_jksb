@@ -12,7 +12,6 @@
 + 申报过程出现`exception`并不会导致程序崩溃，而是重新申报。
 + 重新申报最大次数为3次。
 
-## 换源
 
 更新下载源。
 
@@ -20,7 +19,12 @@
 sudo apt update
 ```
 
-## 配置环境
+下载源码。
+
+```shell
+sudo apt install git -y
+git clone https://github.com/NelsonCheung688585/SYSU_jksb.git jksb
+```
 
 下载`pip3`。
 
@@ -62,13 +66,6 @@ pip3 install selenium
 sudo apt install firefox
 ```
 
-下载源码。
-
-```shell
-sudo apt install git -y
-git clone https://github.com/NelsonCheung688585/SYSU_jksb.git jksb
-```
-
 进入`jksb`文件夹。
 
 ```shell
@@ -81,8 +78,6 @@ cd jksb
 wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
 tar -xvf geckodriver-v0.30.0-linux64.tar.gz
 ```
-
-## 使用
 
 在源码文件夹下，首先将`geckodriver`加入到环境变量。
 
